@@ -93,6 +93,7 @@ void data_delete (s_data_alloc *da, void *data)
   assert(data < da->mem + da->max * octets);
   if (da->clean)
     da->clean(data);
+  bzero(data, octets);
   i = (data - da->mem) / octets;
   da->free[da->free_n++] = i;
 }
