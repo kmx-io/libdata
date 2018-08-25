@@ -15,6 +15,8 @@
  */
 
 #include <assert.h>
+#include <stdlib.h>
+#include <strings.h>
 #include "data.h"
 
 s_data_type g_data_alloc_type = {
@@ -23,6 +25,12 @@ s_data_type g_data_alloc_type = {
 };
 
 s_data_alloc g_data_alloc;
+
+void data_init ()
+{
+  data_alloc_init(&g_data_alloc, &g_data_alloc_type,
+                  DATA_ALLOC_MAX, 0, (f_data_clean*) data_alloc_clean);
+}
 
 void data_alloc_init (s_data_alloc *da, s_data_type *t,
                       unsigned int max, f_data_init *init,
@@ -53,6 +61,7 @@ void * data_new_at (s_data_alloc *da, unsigned int i)
   unsigned int octets = (da->t->bits + 7) / 8;
   unsigned int offset = i * octets;
   void *m = da->mem + offset;
+  bzero(m, octets);
   if (da->init)
     da->init(m);
   return m;

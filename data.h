@@ -53,7 +53,7 @@ typedef struct data_type_struct {
   struct data_type_struct *rest;
 } s_data_type_struct;
 
-typedef union data_type {
+typedef union data_type_ {
   s_data_type         t;
   s_data_type_vector  t_vector;
   s_data_type_integer t_integer;
@@ -84,10 +84,11 @@ typedef struct data_alloc {
   f_data_clean *clean;
 } s_data_alloc;
 
-s_data_type g_data_alloc_type;
-s_data_alloc g_data_alloc;
+#define DATA_ALLOC_MAX 1024
 
-void data_alloc_init (s_data_alloc *da);
+void data_alloc_init (s_data_alloc *da, s_data_type *t,
+                      unsigned int max, f_data_init *init,
+                      f_data_clean *clean);
 void data_alloc_clean (s_data_alloc *da);
 
 void * data_new (s_data_alloc *da);
