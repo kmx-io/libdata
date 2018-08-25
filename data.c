@@ -23,8 +23,13 @@ s_data_type g_data_alloc_type = {
   sizeof(s_data_alloc) * 8,
   DATA_TYPE_BITS
 };
-
 s_data_alloc g_data_alloc;
+
+s_data_type g_data_type_type = {
+  sizeof(u_data_type) * 8,
+  DATA_TYPE_BITS
+};
+s_data_alloc *g_data_type_alloc = 0;
 
 void data_init ()
 {
@@ -96,4 +101,39 @@ void data_delete (s_data_alloc *da, void *data)
   bzero(data, octets);
   i = (data - da->mem) / octets;
   da->free[da->free_n++] = i;
+}
+
+s_data_alloc * data_alloc_new (s_data_type *t, unsigned int max,
+                               f_data_init *init, f_data_clean *clean)
+{
+  s_data_alloc *da = data_new(&g_data_alloc);
+  assert(da);
+  data_alloc_init(da, t, max, init, clean);
+  return da;
+}
+
+void data_alloc_delete (s_data_alloc *da)
+{
+  assert(da);
+  data_delete(&g_data_alloc, da);
+}
+
+u_data_type * data_type_new (unsigned int bits, unsigned int type)
+{
+  u_data_type *t;
+  if (!g_data_type_alloc)
+    g_data_type_alloc = data_alloc_new(&g_data_type_type, DATA_TYPE_MAX,
+                                       0, 0);
+  assert(g_data_type_alloc);
+  t = data_new(g_data_type_alloc);
+  assert(t);
+  t->t.bits = bits;
+  t->t.type = type;
+  return t;
+}
+
+void data_type_delete (s_data_type *t)
+{
+  assert(g_data_type_alloc);
+  data_delete(g_data_type_alloc, t);
 }

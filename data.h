@@ -62,10 +62,6 @@ typedef union data_type_ {
 } u_data_type;
 
 #define DATA_TYPE_MAX 1024
-u_data_type  g_data_types[DATA_TYPE_MAX];
-unsigned int g_data_types_n;
-unsigned int g_data_types_free[DATA_TYPE_MAX];
-unsigned int g_data_types_free_n;
 
 u_data_type * data_type_new (unsigned int bits, unsigned int type);
 void          data_type_delete (s_data_type *t);
@@ -86,12 +82,17 @@ typedef struct data_alloc {
 
 #define DATA_ALLOC_MAX 1024
 
-void data_alloc_init (s_data_alloc *da, s_data_type *t,
-                      unsigned int max, f_data_init *init,
-                      f_data_clean *clean);
-void data_alloc_clean (s_data_alloc *da);
-
 void * data_new (s_data_alloc *da);
 void   data_delete (s_data_alloc *da, void *data);
+
+void           data_alloc_init (s_data_alloc *da, s_data_type *t,
+                                unsigned int max, f_data_init *init,
+                                f_data_clean *clean);
+void           data_alloc_clean (s_data_alloc *da);
+s_data_alloc * data_alloc_new (s_data_type *t,
+                               unsigned int max, f_data_init *init,
+                               f_data_clean *clean);
+void           data_alloc_delete (s_data_alloc *da);
+
 
 #endif
