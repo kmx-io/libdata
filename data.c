@@ -88,6 +88,23 @@ void * data_new (s_data_alloc *da)
   return 0;
 }
 
+int data_new_i (s_data_alloc *da)
+{
+  assert(da);
+  if (da->free_n) {
+    unsigned int i = da->free[--da->free_n];
+    da->free[da->free_n] = 0;
+    data_new_at(da, i);
+    return i;
+  }
+  if (da->n < da->max) {
+    unsigned int i = da->n++;
+    data_new_at(da, i);
+    return i;
+  }
+  return -1;
+}
+
 void data_delete (s_data_alloc *da, void *data)
 {
   unsigned int octets;

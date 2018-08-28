@@ -83,6 +83,7 @@ typedef struct data_alloc {
 #define DATA_ALLOC_MAX 1024
 
 void * data_new (s_data_alloc *da);
+int    data_new_i (s_data_alloc *da);
 void   data_delete (s_data_alloc *da, void *data);
 
 void           data_alloc_init (s_data_alloc *da, s_data_type *t,
