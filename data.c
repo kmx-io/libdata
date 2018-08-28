@@ -31,10 +31,11 @@ s_data_type g_data_type_type = {
 };
 s_data_alloc *g_data_type_alloc = 0;
 
-void data_init ()
+int libdata_init ()
 {
   data_alloc_init(&g_data_alloc, &g_data_alloc_type,
                   DATA_ALLOC_MAX, 0, (f_data_clean*) data_alloc_clean);
+  return 0;
 }
 
 void data_alloc_init (s_data_alloc *da, s_data_type *t,

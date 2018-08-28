@@ -94,5 +94,6 @@ s_data_alloc * data_alloc_new (s_data_type *t,
                                f_data_clean *clean);
 void           data_alloc_delete (s_data_alloc *da);
 
+int libdata_init ();
 
 #endif
