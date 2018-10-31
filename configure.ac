@@ -40,5 +40,3 @@ AM_CONDITIONAL([DEBUG], [test x"$debug" = x"true"])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
-
-cat dependencies.mk >> Makefile

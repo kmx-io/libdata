@@ -23,10 +23,3 @@ include_HEADERS += \
 
 deps_headers = ${include_HEADERS}
 deps_sources = ${libdata_la_SOURCES}
-
-dependencies.mk: ${deps_headers} ${deps_sources}
-	${CC} ${CPPFLAGS} ${CFLAGS} -M *.c > dependencies.mk.1
-	sed -e 's/^\(.*\)[.]o:/\1.$$(OBJEXT) \1.lo:/' dependencies.mk.1 > dependencies.mk.2
-	rm dependencies.mk.1
-	mv dependencies.mk.2 dependencies.mk
-CLEANFILES += dependencies.mk.1 dependencies.mk.2
