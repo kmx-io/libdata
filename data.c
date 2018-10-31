@@ -57,7 +57,7 @@ void data_alloc_init (s_data_alloc *da, s_data_type *t,
 void data_alloc_clean (s_data_alloc *da)
 {
   assert(da);
-  bzero(da->mem, da->max * ((t->bits + 7) / 8));
+  bzero(da->mem, da->max * ((da->t->bits + 7) / 8));
   bzero(da->free, da->max * sizeof(unsigned int));
   free(da->mem);
   free(da->free);
