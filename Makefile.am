@@ -20,6 +20,3 @@ libdata_la_SOURCES = \
 	data.c
 include_HEADERS += \
 	data.h
-
-deps_headers = ${include_HEADERS}
-deps_sources = ${libdata_la_SOURCES}
